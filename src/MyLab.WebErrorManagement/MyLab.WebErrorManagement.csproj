@@ -9,7 +9,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="MyLab" Version="1.0.1" />
-    <PackageReference Include="MyLab.LogDsl" Version="1.0.0" />
+    <PackageReference Include="MyLab.LogDsl" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnet.webapi.client\5.2.6\lib\netstandard2.0\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
