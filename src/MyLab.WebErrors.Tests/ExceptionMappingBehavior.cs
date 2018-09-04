@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using TestServer;
 using Xunit;
 
-namespace MyLab.WebErrorManagement.Tests
+namespace MyLab.WebErrors.Tests
 {
     public class ExceptionMappingBehavior : IClassFixture<WebApplicationFactory<TestServer.Startup>>
     {

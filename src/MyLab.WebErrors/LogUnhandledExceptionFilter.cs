@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using MyLab.LogDsl;
 
-namespace MyLab.WebErrorManagement
+namespace MyLab.WebErrors
 {
     class LogUnhandledExceptionFilter : IExceptionFilter
     {

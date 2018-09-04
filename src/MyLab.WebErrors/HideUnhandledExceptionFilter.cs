@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace MyLab.WebErrorManagement
+namespace MyLab.WebErrors
 {
     class HideUnhandledExceptionFilter : IExceptionFilter
     {

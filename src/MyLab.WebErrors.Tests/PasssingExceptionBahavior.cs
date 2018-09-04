@@ -9,14 +9,14 @@ using TestServer;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MyLab.WebErrorManagement.Tests
+namespace MyLab.WebErrors.Tests
 {
-    public class HidingExceptionBehavior : IClassFixture<WebApplicationFactory<Startup>>
+    public class PassingExceptionBehavior : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
         private readonly ITestOutputHelper _output;
 
-        public HidingExceptionBehavior(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
+        public PassingExceptionBehavior(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
         {
             _factory = factory;
             _output = output;
@@ -26,7 +26,7 @@ namespace MyLab.WebErrorManagement.Tests
         public async Task ShouldHideUnhandledException()
         {
             // Arrange
-            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding).CreateClient();
+            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionPassing).CreateClient();
 
             // Act
             var response = await client.GetAsync("api/exception-hiding");
@@ -48,15 +48,15 @@ namespace MyLab.WebErrorManagement.Tests
                 throw;
             }
 
-            Assert.Equal("foo", dto.Message);
-            Assert.True(string.IsNullOrEmpty(dto.TechDetails));
+            Assert.Equal("bar", dto.Message);
+            Assert.False(string.IsNullOrEmpty(dto.TechDetails));
         }
 
         [Fact]
         public async Task ShouldSetId()
         {
             // Arrange
-            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding).CreateClient();
+            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionPassing).CreateClient();
 
             // Act
             var response = await client.GetAsync("api/exception-hiding");
@@ -81,12 +81,12 @@ namespace MyLab.WebErrorManagement.Tests
             Assert.NotEqual(Guid.Empty, dto.Id);
         }
 
-        private void ConfigureWithExceptionHiding(IWebHostBuilder b)
+        private void ConfigureWithExceptionPassing(IWebHostBuilder b)
         {
             b.ConfigureServices(services =>
             {
                 services.AddMvc(o => o.AddExceptionProcessing());
-                services.Configure<ExceptionProcessingOptions>(o => o.HidesMessage = "foo");
+                services.Configure<ExceptionProcessingOptions>(o => o.HideError = false);
             });
         }
     }

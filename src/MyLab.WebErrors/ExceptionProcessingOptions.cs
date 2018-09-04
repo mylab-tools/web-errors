@@ -1,4 +1,4 @@
-﻿namespace MyLab.WebErrorManagement
+﻿namespace MyLab.WebErrors
 {
     /// <summary>
     /// Unhandled exception

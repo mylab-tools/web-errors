@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using MyLab.WebErrorManagement;
+using MyLab.WebErrors;
 
 namespace TestServer.Controllers
 {

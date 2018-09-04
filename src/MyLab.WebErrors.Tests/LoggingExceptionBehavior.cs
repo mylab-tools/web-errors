@@ -13,7 +13,7 @@ using TestServer;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MyLab.WebErrorManagement.Tests
+namespace MyLab.WebErrors.Tests
 {
     public class LoggingExceptionBehavior : IClassFixture<WebApplicationFactory<Startup>>
     {

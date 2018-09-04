@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 
-namespace MyLab.WebErrorManagement
+namespace MyLab.WebErrors
 {
     class PassUnhandledExceptionFilter : IExceptionFilter
     {

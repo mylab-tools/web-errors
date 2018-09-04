@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MyLab.WebErrorManagement
+namespace MyLab.WebErrors
 {
     /// <summary>
     /// Integrates exception handling

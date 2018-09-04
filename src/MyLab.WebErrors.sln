@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLab.WebErrorManagement", "MyLab.WebErrorManagement\MyLab.WebErrorManagement.csproj", "{9CAF4039-4207-4158-86A3-F828B21B61BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLab.WebErrors", "MyLab.WebErrors\MyLab.WebErrors.csproj", "{9CAF4039-4207-4158-86A3-F828B21B61BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLab.WebErrorManagement.Tests", "MyLab.WebErrorManagement.Tests\MyLab.WebErrorManagement.Tests.csproj", "{D3F1E604-4D6F-4C1C-90DF-7A11D5643A3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLab.WebErrors.Tests", "MyLab.WebErrors.Tests\MyLab.WebErrors.Tests.csproj", "{D3F1E604-4D6F-4C1C-90DF-7A11D5643A3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServer", "TestServer\TestServer.csproj", "{2A378A5B-33B2-464E-AFF5-D99B5B5AF651}"
 EndProject

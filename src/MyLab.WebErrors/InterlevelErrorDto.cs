@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace MyLab.WebErrorManagement
+namespace MyLab.WebErrors
 {
     /// <summary>
     /// Contains error data for client
