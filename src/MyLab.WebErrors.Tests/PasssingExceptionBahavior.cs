@@ -41,11 +41,9 @@ namespace MyLab.WebErrors.Tests
             {
                 dto = JsonConvert.DeserializeObject<InterlevelErrorDto>(content);
             }
-            catch (Exception)
+            finally 
             {
                 _output.WriteLine("Content: " + content);
-
-                throw;
             }
 
             Assert.Equal("bar", dto.Message);
@@ -71,11 +69,9 @@ namespace MyLab.WebErrors.Tests
             {
                 dto = JsonConvert.DeserializeObject<InterlevelErrorDto>(content);
             }
-            catch (Exception)
+            finally 
             {
                 _output.WriteLine("Content: " + content);
-
-                throw;
             }
 
             Assert.NotEqual(Guid.Empty, dto.Id);

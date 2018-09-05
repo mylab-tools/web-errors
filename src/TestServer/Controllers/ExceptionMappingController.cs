@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MyLab.WebErrors;
@@ -12,14 +11,14 @@ namespace TestServer.Controllers
     {
         [HttpGet("with-message")]
         [ErrorToResponse(typeof(NullReferenceException), HttpStatusCode.NotFound, "foo")]
-        public ActionResult<IEnumerable<string>> GetWithMessage()
+        public ActionResult GetWithMessage()
         {
             throw new NullReferenceException("bar");
         }
 
         [HttpGet("without-message")]
         [ErrorToResponse(typeof(NullReferenceException), HttpStatusCode.NotFound)]
-        public ActionResult<IEnumerable<string>> GetWithoutMessage()
+        public ActionResult GetWithoutMessage()
         {
             throw new NullReferenceException("bar");
         }

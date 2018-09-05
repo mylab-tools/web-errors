@@ -81,9 +81,9 @@ namespace MyLab.WebErrors.Tests
             Assert.NotNull(logEntity);
 
             _output.WriteLine("ExceptionId: " + (exception?.GetId().ToString() ?? "[exception not found]"));
-            _output.WriteLine("LogEntityId: " + logEntity.InstanceId);
+            _output.WriteLine("LogEntityId: " + logEntity.Id);
 
-            Assert.Equal(dto.Id, logEntity.InstanceId);
+            Assert.Equal(dto.Id, logEntity.Id);
         }
     }
 }
