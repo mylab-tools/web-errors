@@ -26,7 +26,7 @@ namespace MyLab.WebErrors.Tests
         public async Task ShouldHideUnhandledException()
         {
             // Arrange
-            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding).CreateClient();
+            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding()).CreateClient();
 
             // Act
             var response = await client.GetAsync("api/exception-hiding");
@@ -41,11 +41,37 @@ namespace MyLab.WebErrors.Tests
             {
                 dto = JsonConvert.DeserializeObject<InterlevelErrorDto>(content);
             }
-            catch (Exception)
+            finally
             {
                 _output.WriteLine("Content: " + content);
+            }
 
-                throw;
+            Assert.Equal(HideUnhandledExceptionFilter.DefaultMessage, dto.Message);
+            Assert.True(string.IsNullOrEmpty(dto.TechDetails));
+        }
+
+        [Fact]
+        public async Task ShouldHideUnhandledExceptionWithCustomMessage()
+        {
+            // Arrange
+            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding("foo")).CreateClient();
+
+            // Act
+            var response = await client.GetAsync("api/exception-hiding");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            InterlevelErrorDto dto;
+            try
+            {
+                dto = JsonConvert.DeserializeObject<InterlevelErrorDto>(content);
+            }
+            finally
+            {
+                _output.WriteLine("Content: " + content);
             }
 
             Assert.Equal("foo", dto.Message);
@@ -56,7 +82,7 @@ namespace MyLab.WebErrors.Tests
         public async Task ShouldSetId()
         {
             // Arrange
-            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding).CreateClient();
+            var client = _factory.WithWebHostBuilder(ConfigureWithExceptionHiding()).CreateClient();
 
             // Act
             var response = await client.GetAsync("api/exception-hiding");
@@ -71,22 +97,20 @@ namespace MyLab.WebErrors.Tests
             {
                 dto = JsonConvert.DeserializeObject<InterlevelErrorDto>(content);
             }
-            catch (Exception)
+            finally 
             {
                 _output.WriteLine("Content: " + content);
-
-                throw;
             }
 
             Assert.NotEqual(Guid.Empty, dto.Id);
         }
 
-        private void ConfigureWithExceptionHiding(IWebHostBuilder b)
+        private Action<IWebHostBuilder> ConfigureWithExceptionHiding(string overrideMessage = null)
         {
-            b.ConfigureServices(services =>
+            return b => b.ConfigureServices(services =>
             {
                 services.AddMvc(o => o.AddExceptionProcessing());
-                services.Configure<ExceptionProcessingOptions>(o => o.HidesMessage = "foo");
+                services.Configure<ExceptionProcessingOptions>(o => o.HidesMessage = overrideMessage);
             });
         }
     }

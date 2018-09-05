@@ -8,6 +8,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/ozzy-ext/mylab-web-errors.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ozzy-ext/mylab-web-errors</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="MyLab" Version="1.0.1" />
-    <PackageReference Include="MyLab.LogDsl" Version="1.0.2" />
+    <PackageReference Include="MyLab.LogDsl" Version="1.1.4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -34,7 +34,10 @@ namespace MyLab.WebErrors
                 Message = _options?.HidesMessage ?? Message ?? DefaultMessage
             };
 
-            var res = new JsonResult(dto)
+            var res = new JsonResult(dto, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            })
             {
                 StatusCode = (int) HttpStatusCode.InternalServerError
             };

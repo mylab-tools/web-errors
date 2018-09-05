@@ -4,16 +4,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using TestServer;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace MyLab.WebErrors.Tests
 {
     public class ExceptionMappingBehavior : IClassFixture<WebApplicationFactory<TestServer.Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
+        private readonly ITestOutputHelper _output;
 
-        public ExceptionMappingBehavior(WebApplicationFactory<TestServer.Startup> factory)
+        public ExceptionMappingBehavior(WebApplicationFactory<TestServer.Startup> factory, ITestOutputHelper output)
         {
             _factory = factory;
+            _output = output;
         }
 
         [Fact]
@@ -29,6 +32,7 @@ namespace MyLab.WebErrors.Tests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
 
             var content = await response.Content.ReadAsStringAsync();
+            _output.WriteLine("Response: " + content);
 
             Assert.Equal("foo", content);
         }
@@ -46,6 +50,7 @@ namespace MyLab.WebErrors.Tests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
 
             var content = await response.Content.ReadAsStringAsync();
+            _output.WriteLine("Response: " + content);
 
             Assert.Equal("bar", content);
         }

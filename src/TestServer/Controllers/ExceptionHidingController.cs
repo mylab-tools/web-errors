@@ -12,7 +12,7 @@ namespace TestServer.Controllers
     public class ExceptionHidingController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult Get()
         {
             throw new NullReferenceException("bar");
         }
