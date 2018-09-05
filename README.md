@@ -2,6 +2,8 @@
 
 For .NET Core 2.1+
 
+[![NuGet](https://img.shields.io/nuget/v/MyLab.WebErrors.svg)](https://www.nuget.org/packages/MyLab.WebErrors/)
+
 Provides abilities to manage unhandled exception in .NET Core web projects.
 
 Primary features:
