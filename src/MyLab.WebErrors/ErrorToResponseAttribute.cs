@@ -9,6 +9,7 @@ namespace MyLab.WebErrors
     /// <summary>
     /// Describes mapping exception to response
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ErrorToResponseAttribute : Attribute, IExceptionFilter
     {
         /// <summary>
