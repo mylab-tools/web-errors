@@ -13,7 +13,7 @@ Primary features:
 * unhandled exception hiding
 * data contract for interlevel errors
 
-
+Visit  [changelog](/changelog.md) to view last changes.
 
 ## Beginning
 
