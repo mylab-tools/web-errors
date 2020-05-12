@@ -102,7 +102,7 @@ namespace MyLab.WebErrors.Tests
                 _output.WriteLine("Content: " + content);
             }
 
-            Assert.NotEqual(Guid.Empty, dto.Id);
+            Assert.NotNull(dto.Id);
         }
 
         private Action<IWebHostBuilder> ConfigureWithExceptionHiding(string overrideMessage = null)

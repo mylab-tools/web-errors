@@ -1,28 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Andrey O.</Authors>
     <Copyright>Copyright (c) 2018 Andrey Osintsev "ozzy.ext@gmail.com"</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/ozzy-ext/mylab-web-errors.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ozzy-ext/mylab-web-errors</PackageProjectUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.1205</AssemblyVersion>
+    <FileVersion>1.0.3.1205</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
-    <PackageReference Include="MyLab" Version="1.0.1" />
-    <PackageReference Include="MyLab.LogDsl" Version="1.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnet.webapi.client\5.2.6\lib\netstandard2.0\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.4" />
+    <PackageReference Include="MyLab.LogDsl" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
