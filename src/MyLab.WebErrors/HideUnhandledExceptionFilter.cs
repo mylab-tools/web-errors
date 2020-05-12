@@ -26,18 +26,22 @@ namespace MyLab.WebErrors
 
             var dto = new InterlevelErrorDto
             {
-                Id = context.Exception.GetId(),
+                Id = context.HttpContext.TraceIdentifier,
                 Message = _options?.HidesMessage ?? Message ?? DefaultMessage
             };
 
-            var res = new JsonResult(dto, new JsonSerializerSettings
+            var strContent = JsonConvert.SerializeObject(dto, new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
-            })
+            });
+
+            var res = new ContentResult
             {
-                StatusCode = (int) HttpStatusCode.InternalServerError
+                Content = strContent,
+                ContentType = "application/json",
+                StatusCode = (int)HttpStatusCode.InternalServerError
             };
-            
+
             context.Result = res;
             context.ExceptionHandled = true;
         }

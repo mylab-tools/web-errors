@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace MyLab.WebErrors
 {
@@ -21,13 +22,20 @@ namespace MyLab.WebErrors
 
             var dto = new InterlevelErrorDto
             {
-                Id = context.Exception.GetId(),
+                Id = context.HttpContext.TraceIdentifier,
                 Message = context.Exception.Message,
                 TechDetails = context.Exception.StackTrace
             };
 
-            var res = new JsonResult(dto)
+            var strContent = JsonConvert.SerializeObject(dto, new JsonSerializerSettings
             {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            var res = new ContentResult
+            {
+                Content = strContent,
+                ContentType = "application/json",
                 StatusCode = (int)HttpStatusCode.InternalServerError
             };
 

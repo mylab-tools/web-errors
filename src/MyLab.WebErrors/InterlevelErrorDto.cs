@@ -12,7 +12,7 @@ namespace MyLab.WebErrors
         /// Identifier
         /// </summary>
         [JsonProperty("id")]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// Message
         /// </summary>

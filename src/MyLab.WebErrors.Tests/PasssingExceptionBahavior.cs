@@ -74,7 +74,7 @@ namespace MyLab.WebErrors.Tests
                 _output.WriteLine("Content: " + content);
             }
 
-            Assert.NotEqual(Guid.Empty, dto.Id);
+            Assert.NotNull(dto.Id);
         }
 
         private void ConfigureWithExceptionPassing(IWebHostBuilder b)
