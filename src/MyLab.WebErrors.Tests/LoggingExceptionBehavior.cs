@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Moq;
-using MyLab.Logging;
+using MyLab.Log;
 using Newtonsoft.Json;
 using TestServer;
 using Xunit;
@@ -30,32 +26,15 @@ namespace MyLab.WebErrors.Tests
         public async Task ShouldSetTheSameIdWithLogEntity()
         {
             //Arrange
-            LogEntity logEntity = null;
-
-            var loggerMock = new Mock<ILogger>();
-            loggerMock.Setup(p => p.Log(
-                    It.IsAny<LogLevel>(),
-                    It.IsAny<EventId>(),
-                    It.IsAny<LogEntity>(),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<LogEntity, Exception, string>>()
-                ))
-                .Callback((Action<LogLevel, EventId, LogEntity, Exception, Func<LogEntity, Exception, string>>)
-                    ((ll, ei, le, ex, f) =>
-                    {
-                        logEntity = le;
-                    }));
-
-            var logProviderMock = new Mock<ILoggerProvider>();
-            logProviderMock.Setup(p => p.CreateLogger(It.IsAny<string>()))
-                .Returns((Func<string, ILogger>) (c => loggerMock.Object));
+            var logger=  new TestLogger();
+            var loggerProvider = new TestLoggerProvider(logger);
 
             var client = _factory.WithWebHostBuilder(b =>
             {
                 b.ConfigureServices(services =>
                 {
                     services.AddMvc(o => o.AddExceptionProcessing());
-                    services.AddLogging(c => c.AddProvider(logProviderMock.Object));
+                    services.AddLogging(c => c.AddProvider(loggerProvider));
                 });
             }).CreateClient();
 
@@ -76,8 +55,49 @@ namespace MyLab.WebErrors.Tests
             }
 
             //Assert
-            Assert.NotNull(logEntity);
-            //Assert.Equal(dto.Id, logEntity.);
+            Assert.NotNull(logger.LastLog);
+            Assert.Equal(dto.Id, logger.LastLog.Facts[HttpTraceIdFact.Key]);
+        }
+
+        class TestLoggerProvider : ILoggerProvider
+        {
+            private readonly ILogger _logger;
+
+            public TestLoggerProvider(ILogger logger)
+            {
+                _logger = logger;
+            }
+
+            public void Dispose()
+            {
+                
+            }
+
+            public ILogger CreateLogger(string categoryName)
+            {
+                return _logger;
+            }
+        }
+
+        class TestLogger : ILogger
+        {
+            public LogEntity LastLog { get; private set; }
+
+            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+            {
+                if (state is LogEntity le)
+                    LastLog = le;
+            }
+
+            public bool IsEnabled(LogLevel logLevel)
+            {
+                return logLevel == LogLevel.Error;
+            }
+
+            public IDisposable BeginScope<TState>(TState state)
+            {
+                return null;
+            }
         }
     }
 }

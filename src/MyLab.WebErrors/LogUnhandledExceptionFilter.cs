@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel.Design;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using MyLab.LogDsl;
+using MyLab.Log.Dsl;
 
 namespace MyLab.WebErrors
 {
@@ -17,7 +15,10 @@ namespace MyLab.WebErrors
 
         public void OnException(ExceptionContext context)
         {
-            _logger?.Dsl().Error(context.Exception).Write();
+            _logger?.Dsl()
+                .Error(context.Exception)
+                .AndFactIs(HttpTraceIdFact.Key, context.HttpContext.TraceIdentifier)
+                .Write();
         }
     }
 }
