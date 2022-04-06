@@ -46,7 +46,7 @@ namespace MyLab.WebErrors.Tests
                 _output.WriteLine("Content: " + content);
             }
 
-            Assert.Equal(HideUnhandledExceptionFilter.DefaultMessage, dto.Message);
+            Assert.Equal(UnhandledExceptionFilter.DefaultErrorMessage, dto.Message);
             Assert.True(string.IsNullOrEmpty(dto.TechDetails));
         }
 
