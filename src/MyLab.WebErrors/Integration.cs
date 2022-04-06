@@ -13,9 +13,8 @@ namespace MyLab.WebErrors
         /// </summary>
         public static MvcOptions AddExceptionProcessing(this MvcOptions mvcOptions)
         {
-            mvcOptions.Filters.Add<HideUnhandledExceptionFilter>();
-            mvcOptions.Filters.Add<PassUnhandledExceptionFilter>();
-            mvcOptions.Filters.Add<LogUnhandledExceptionFilter>();
+            mvcOptions.Filters.Add<UnhandledExceptionFilter>();
+            mvcOptions.Conventions.Add(new ErrorToResponseAppConvention());
 
             return mvcOptions;
         }

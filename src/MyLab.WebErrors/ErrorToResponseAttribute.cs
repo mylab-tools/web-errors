@@ -10,7 +10,7 @@ namespace MyLab.WebErrors
     /// Describes mapping exception to response
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class ErrorToResponseAttribute : Attribute, IExceptionFilter
+    public class ErrorToResponseAttribute : Attribute
     {
         /// <summary>
         /// Exception type
@@ -35,21 +35,6 @@ namespace MyLab.WebErrors
             ExceptionType = exceptionType;
             ResponseCode = responseCode;
             Message = message;
-        }
-
-        public void OnException(ExceptionContext context)
-        {
-            if (context.Exception.GetType() != ExceptionType)
-                return;
-
-            context.Result = new ContentResult
-            {
-                Content = Message ?? context.Exception.Message,
-                ContentType = "text/plain",
-                StatusCode = (int)ResponseCode
-            };
-
-            context.ExceptionHandled = true;
         }
     }
 }
