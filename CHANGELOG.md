@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file
 
 Формат лога изменений базируется на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.2.3] - 2022-04-06
+## [1.1.4] - 2022-04-06
 
 ### Changed
 
