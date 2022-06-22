@@ -17,6 +17,9 @@ namespace MyLab.WebErrors.Tests
         private static readonly MethodInfo TestActionWithNoBindingMethod = 
             typeof(ErrorToResponseMapBehavior).GetMethod(nameof(TestActionWithNoBindings),
             BindingFlags.NonPublic | BindingFlags.Static);
+        private static readonly MethodInfo TestActionWithInheritanceMethod = 
+            typeof(ErrorToResponseMapBehavior).GetMethod(nameof(TestActionWithInheritanceBindings),
+            BindingFlags.NonPublic | BindingFlags.Static);
 
         [Fact]
         public void ShouldDetectOneActionBinding()
@@ -67,6 +70,40 @@ namespace MyLab.WebErrors.Tests
             Assert.Empty(map);
         }
 
+        [Fact]
+        public void ShouldProvideSingleExactResponse()
+        {
+            //Arrange
+
+            //Act
+            var map = ErrorToResponseMap.LoadFromMethod(TestActionWithSeveralBindingMethod);
+
+            var success = map.TryGetBinding(typeof(InvalidOperationException), out var resultHttpStatus);
+
+            //Assert
+            Assert.True(success);
+            Assert.Equal(HttpStatusCode.BadRequest, resultHttpStatus.ResponseCode);
+        }
+
+        [Theory]
+        [InlineData(typeof(Exception), HttpStatusCode.NotFound)]
+        [InlineData(typeof(ChildException), HttpStatusCode.BadRequest)]
+        [InlineData(typeof(Child2Exception), HttpStatusCode.BadRequest)]
+        [InlineData(typeof(InvalidOperationException), HttpStatusCode.NotFound)]
+        public void ShouldProvideStatusCodeWithRate(Type exceptionType, HttpStatusCode expectedHttpStatusCode)
+        {
+            //Arrange
+
+            //Act
+            var map = ErrorToResponseMap.LoadFromMethod(TestActionWithInheritanceMethod);
+
+            var success = map.TryGetBinding(exceptionType, out var resultHttpStatus);
+
+            //Assert
+            Assert.True(success);
+            Assert.Equal(expectedHttpStatusCode, resultHttpStatus.ResponseCode);
+        }
+
         [ErrorToResponse(typeof(InvalidOperationException), HttpStatusCode.BadRequest, "foo message")]
         static void TestActionWithOneBinding()
         {
@@ -81,6 +118,24 @@ namespace MyLab.WebErrors.Tests
         }
 
         static void TestActionWithNoBindings()
+        {
+
+        }
+
+
+        [ErrorToResponse(typeof(ChildException), HttpStatusCode.BadRequest)]
+        [ErrorToResponse(typeof(Exception), HttpStatusCode.NotFound)]
+        static void TestActionWithInheritanceBindings()
+        {
+
+        }
+
+        class ChildException : Exception
+        {
+
+        }
+
+        class Child2Exception : ChildException
         {
 
         }
