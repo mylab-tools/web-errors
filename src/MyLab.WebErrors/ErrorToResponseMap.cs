@@ -44,7 +44,17 @@ namespace MyLab.WebErrors
 
         public bool TryGetBinding(Type exceptionType, out ErrorToResponseBinding binding)
         {
-            binding = this.FirstOrDefault(b => b.ExceptionType == exceptionType);
+            binding = this.Select(b =>
+                    new
+                    {
+                        Binding = b,
+                        Rate = TypeComparer.GetComparisonRate(b.ExceptionType, exceptionType)
+                    })
+                .Where(r => r.Rate != -1)
+                .OrderBy(r => r.Rate)
+                .Select(r => r.Binding)
+                .FirstOrDefault();
+
             return binding != null;
         }
     }
