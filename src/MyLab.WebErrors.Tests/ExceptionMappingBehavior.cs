@@ -54,5 +54,18 @@ namespace MyLab.WebErrors.Tests
 
             Assert.Equal("bar", content);
         }
+
+        [Fact]
+        public async Task ShouldReturnNoContentResponseCorrectly()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("api/exception-mapping/no-content");
+
+            // Assert
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
     }
 }

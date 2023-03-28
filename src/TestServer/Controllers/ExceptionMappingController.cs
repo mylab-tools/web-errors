@@ -22,5 +22,12 @@ namespace TestServer.Controllers
         {
             throw new NullReferenceException("bar");
         }
+
+        [HttpGet("no-content")]
+        [ErrorToResponse(typeof(NullReferenceException), HttpStatusCode.NoContent)]
+        public ActionResult GetNoContent()
+        {
+            throw new NullReferenceException("bar");
+        }
     }
 }
