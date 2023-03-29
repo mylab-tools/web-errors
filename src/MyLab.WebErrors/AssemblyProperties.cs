@@ -1,3 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("MyLab.WebErrors.Tests")]
+[assembly:InternalsVisibleTo("UnitTests")]
+[assembly:InternalsVisibleTo("FuncTestsCore31")]

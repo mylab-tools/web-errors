@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using MyLab.WebErrors;
 using Xunit;
 
-namespace MyLab.WebErrors.Tests
+namespace UnitTests
 {
     public class TypeComparerBehavior
     {

@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using MyLab.WebErrors;
 using Xunit;
 
-namespace MyLab.WebErrors.Tests
+namespace UnitTests
 {
     public class ErrorToResponseMapBehavior
     {
