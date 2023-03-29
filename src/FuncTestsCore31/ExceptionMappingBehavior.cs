@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -68,7 +69,7 @@ namespace FuncTests
         }
 
         [Fact]
-        public async Task ShouldReturnNoContentResponseCorrectly()
+        public async Task ShouldReturnNoContentResponseWithoutContent()
         {
             // Arrange
             var client = _factory.CreateClient();
@@ -78,6 +79,7 @@ namespace FuncTests
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            Assert.DoesNotContain(response.Content.Headers, h => h.Key == "Content-Length");
         }
     }
 }

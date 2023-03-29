@@ -94,12 +94,19 @@ namespace MyLab.WebErrors
 
         HttpStatusCode SetBoundResult(ExceptionContext context, ErrorToResponseBinding binding)
         {
-            context.Result = new ContentResult
+            if (binding.ResponseCode == HttpStatusCode.NoContent)
             {
-                Content = binding.Message ?? context.Exception.Message,
-                ContentType = "text/plain",
-                StatusCode = (int)binding.ResponseCode
-            };
+                context.Result = new NoContentResult();
+            }
+            else
+            {
+                context.Result = new ContentResult
+                {
+                    Content = binding.Message ?? context.Exception.Message,
+                    ContentType = "text/plain",
+                    StatusCode = (int)binding.ResponseCode
+                };
+            }
 
             context.ExceptionHandled = true;
 
