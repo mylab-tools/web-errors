@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Формат лога изменений базируется на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.1.6] - 2023-03-29
+
+### Fixed
+
+* error message in body of `NoContent` mapped response
+
 ## [1.1.5] - 2022-06-22
 
 ### Changed

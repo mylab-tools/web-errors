@@ -1,9 +1,8 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MyLab.WebErrors;
 
-namespace TestServer.Controllers
+namespace TestServerNet7.Controllers
 {
     [Route("api/exception-mapping")]
     [ApiController]

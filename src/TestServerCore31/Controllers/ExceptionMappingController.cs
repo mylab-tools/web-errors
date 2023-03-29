@@ -3,7 +3,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MyLab.WebErrors;
 
-namespace TestServer.Controllers
+namespace TestServerCore31.Controllers
 {
     [Route("api/exception-mapping")]
     [ApiController]

@@ -1,19 +1,32 @@
-using System;
+using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
-using TestServer;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MyLab.WebErrors.Tests
+#if NET7_0_OR_GREATER
+
+using TestServerNet7;
+
+using App = TestServerNet7.Program;
+
+#else
+
+using TestServerCore31;
+using System.Threading.Tasks;
+
+using App = TestServerCore31.Startup;
+
+#endif
+
+namespace FuncTests
 {
-    public class ExceptionMappingBehavior : IClassFixture<WebApplicationFactory<TestServer.Startup>>
+    public class ExceptionMappingBehavior : IClassFixture<WebApplicationFactory<App>>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly WebApplicationFactory<App> _factory;
         private readonly ITestOutputHelper _output;
 
-        public ExceptionMappingBehavior(WebApplicationFactory<TestServer.Startup> factory, ITestOutputHelper output)
+        public ExceptionMappingBehavior(WebApplicationFactory<App> factory, ITestOutputHelper output)
         {
             _factory = factory;
             _output = output;
@@ -56,7 +69,7 @@ namespace MyLab.WebErrors.Tests
         }
 
         [Fact]
-        public async Task ShouldReturnNoContentResponseCorrectly()
+        public async Task ShouldReturnNoContentResponseWithoutContent()
         {
             // Arrange
             var client = _factory.CreateClient();
@@ -66,6 +79,7 @@ namespace MyLab.WebErrors.Tests
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            Assert.DoesNotContain(response.Content.Headers, h => h.Key == "Content-Length");
         }
     }
 }
