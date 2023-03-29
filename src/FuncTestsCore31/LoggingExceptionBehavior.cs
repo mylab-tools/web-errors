@@ -1,23 +1,36 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyLab.Log;
 using MyLab.WebErrors;
 using Newtonsoft.Json;
-using TestServerCore31;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace FuncTestsCore31
+#if NET7_0_OR_GREATER
+
+using TestServerNet7;
+
+using App = TestServerNet7.Program;
+
+#else
+
+using TestServerCore31;
+using System.Threading.Tasks;
+using System;
+
+using App = TestServerCore31.Startup;
+
+#endif
+
+namespace FuncTests
 {
-    public class LoggingExceptionBehavior : IClassFixture<WebApplicationFactory<Startup>>
+    public class LoggingExceptionBehavior : IClassFixture<WebApplicationFactory<App>>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly WebApplicationFactory<App> _factory;
         private readonly ITestOutputHelper _output;
 
-        public LoggingExceptionBehavior(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
+        public LoggingExceptionBehavior(WebApplicationFactory<App> factory, ITestOutputHelper output)
         {
             _factory = factory;
             _output = output;

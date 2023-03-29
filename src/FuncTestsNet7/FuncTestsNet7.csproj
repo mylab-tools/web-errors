@@ -1,13 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.32" />
+    <Compile Include="..\FuncTestsCore31\ExceptionMappingBehavior.cs" Link="ExceptionMappingBehavior.cs" />
+    <Compile Include="..\FuncTestsCore31\HiddingExceptionBahavior.cs" Link="HiddingExceptionBahavior.cs" />
+    <Compile Include="..\FuncTestsCore31\LoggingExceptionBehavior.cs" Link="LoggingExceptionBehavior.cs" />
+    <Compile Include="..\FuncTestsCore31\PasssingExceptionBahavior.cs" Link="PasssingExceptionBahavior.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -22,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyLab.WebErrors\MyLab.WebErrors.csproj" />
-    <ProjectReference Include="..\TestServerCore31\TestServerCore31.csproj" />
+    <ProjectReference Include="..\TestServerNet7\TestServerNet7.csproj" />
   </ItemGroup>
 
 </Project>

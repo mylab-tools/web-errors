@@ -1,22 +1,35 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using MyLab.WebErrors;
 using Newtonsoft.Json;
-using TestServerCore31;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace FuncTestsCore31
+#if NET7_0_OR_GREATER
+
+using TestServerNet7;
+
+using App = TestServerNet7.Program;
+
+#else
+
+using TestServerCore31;
+using System.Threading.Tasks;
+
+using App = TestServerCore31.Startup;
+
+#endif
+
+namespace FuncTests
 {
-    public class PassingExceptionBehavior : IClassFixture<WebApplicationFactory<Startup>>
+    public class PassingExceptionBehavior : IClassFixture<WebApplicationFactory<App>>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly WebApplicationFactory<App> _factory;
         private readonly ITestOutputHelper _output;
 
-        public PassingExceptionBehavior(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
+        public PassingExceptionBehavior(WebApplicationFactory<App> factory, ITestOutputHelper output)
         {
             _factory = factory;
             _output = output;
